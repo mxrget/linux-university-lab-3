@@ -20,3 +20,17 @@
 
 Вводим команду `ip a` - проверяем, назначился ли IP-адрес: да, под интерфейсом enp0s3 есть строка с `inet 192.168.1.10/24`. 
 ![image](https://github.com/mxrget/linux-university-lab-3/blob/main/pic2.png)
+
+Теперь 3 машины могут пинговать друг друга.
+![image](https://github.com/mxrget/linux-university-lab-3/blob/main/pic3.png)
+*Вторая машина успешно пингует первую.*
+![image](https://github.com/mxrget/linux-university-lab-3/blob/main/pic4.png)
+*Третья машина успешно пингует вторую.*
+
+Осталось разобраться, как запретить доступ от второй машины к третьей. Изначально на третьей я поставил фаерволл (`sudo ufw deny from 192.168.1.20`), но это почему-то не сработало, поэтому я ввёл `sudo iptables -I INPUT -s 192.168.1.20 -j DROP`, и теперь оно действительно запретило доступ от второй машины к третьей.
+![image](https://github.com/mxrget/linux-university-lab-3/blob/main/pic5.png)
+*К одной машине пинг проходит, к другой - нет.*
+
+Ну и красивая (не очень, потому что я подключился к монитору и всё на ВМах зашакалилось) картиночка, где видны все три ВМ, некоторые из которых могут друг друга пинговать, а некоторые - нет.
+![image](https://github.com/mxrget/linux-university-lab-3/blob/main/pic6.png)
+*Задание выполнено.*
